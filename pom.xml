@@ -51,6 +51,7 @@
         <dependency.aspectj.version>1.8.5</dependency.aspectj.version>
         <dependency.xstream.version>1.4.8</dependency.xstream.version>
         <dependency.jbarcode.version>0.2.8</dependency.jbarcode.version>
+        <dependency.commons-io.version>2.4</dependency.commons-io.version>
     </properties>
 
     <dependencies>
@@ -279,6 +280,11 @@
                 <groupId>net.sf</groupId>
                 <artifactId>jbarcode</artifactId>
                 <version>${dependency.jbarcode.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${dependency.commons-io.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
