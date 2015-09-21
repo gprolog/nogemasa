@@ -28,8 +28,6 @@ import java.io.OutputStream;
 @Controller
 @RequestMapping("/service/bar-code")
 public class BarCodeServiceController {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
     @RequestMapping("")
     public String index(@RequestParam("cardNo") String cardNo, HttpServletRequest request) {
         request.setAttribute("cardNo", cardNo);
