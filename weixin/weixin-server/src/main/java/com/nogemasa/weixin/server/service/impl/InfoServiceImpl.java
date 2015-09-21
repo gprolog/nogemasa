@@ -1,9 +1,9 @@
-package com.nogemasa.weixin.service.impl;
+package com.nogemasa.weixin.server.service.impl;
 
 import com.nogemasa.common.pojo.MemberInfoPojo;
-import com.nogemasa.weixin.common.AccessTokenKeeper;
-import com.nogemasa.weixin.service.IInfoService;
-import com.nogemasa.weixin.util.WxUtils;
+import com.nogemasa.weixin.common.component.AccessTokenKeeper;
+import com.nogemasa.weixin.common.util.WxUtils;
+import com.nogemasa.weixin.server.service.IInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

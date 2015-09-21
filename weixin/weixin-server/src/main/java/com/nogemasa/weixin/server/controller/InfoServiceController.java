@@ -1,8 +1,8 @@
-package com.nogemasa.weixin.controller;
+package com.nogemasa.weixin.server.controller;
 
 import com.nogemasa.signature.agent.annotation.SignatureVerifyService;
-import com.nogemasa.weixin.service.IInfoService;
 import com.nogemasa.signature.util.json.MessageParser;
+import com.nogemasa.weixin.server.service.IInfoService;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.nogemasa.weixin.service;
+package com.nogemasa.weixin.server.service;
 
 import com.nogemasa.common.pojo.MemberInfoPojo;
 
