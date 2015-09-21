@@ -1,4 +1,4 @@
-package com.nogemasa.weixin.controller;
+package com.nogemasa.weixin.web.controller;
 
 import org.jbarcode.JBarcode;
 import org.jbarcode.encode.Code128Encoder;

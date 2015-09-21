@@ -3,7 +3,7 @@
 
     <property name="log.home" value="/home/tomcat/logs/weixin"/>
 
-    <property name="log.name" value="weixin-front"/>
+    <property name="log.name" value="weixin-web"/>
 
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
