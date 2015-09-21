@@ -9,8 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>weixin</artifactId>
-    <packaging>war</packaging>
-    <description>weixin webapp</description>
+    <packaging>pom</packaging>
+    <description>weixin module</description>
+    <modules>
+        <module>weixin-interface</module>
+        <module>weixin-service</module>
+        <module>weixin-common</module>
+        <module>weixin-web</module>
+    </modules>
 
     <dependencies>
         <dependency>
