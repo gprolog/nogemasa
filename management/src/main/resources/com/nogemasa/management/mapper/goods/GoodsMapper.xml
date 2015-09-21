@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.management.mapper.goods.GoodsMapper">
+    <resultMap id="goods" type="GoodsPojo">
+        <id property="sid" column="sid"/>
+        <result property="name" column="name"/>
+        <result property="goodsSize" column="goods_size"/>
+        <result property="color" column="color"/>
+        <result property="fabrics" column="fabrics"/>
+        <result property="style" column="style"/>
+        <result property="sn" column="sn"/>
+        <result property="putInStatus" column="put_in_status"/>
+    </resultMap>
+    <insert id="addGoods" parameterType="GoodsPojo" useGeneratedKeys="true" keyProperty="sid">
+        INSERT INTO c_goods (name, goods_size, color, fabrics, style, sn, put_in_status)
+        VALUES (#{name}, #{goodsSize}, #{color}, #{fabrics}, #{style}, #{sn}, '1')
+    </insert>
+    <update id="updateGoods">
+        UPDATE c_goods
+        SET name = #{name}, goods_size = #{goodsSize}, color = #{color}, fabrics = #{fabrics}, style = #{style}, sn =
+        #{sn}
+        WHERE sid = #{sid}
+    </update>
+    <update id="updateGoodsPutInStatus">
+        UPDATE c_goods
+        SET put_in_status = #{putInStatus}
+        WHERE sid = #{sid}
+    </update>
+    <update id="resetAllPutInStatus">
+        UPDATE c_goods
+        SET put_in_status = '1'
+    </update>
+    <delete id="deleteGoods" parameterType="string">
+        DELETE FROM c_goods
+        WHERE sid = #{sid}
+    </delete>
+    <select id="getGoodsList" parameterType="map" resultMap="goods">
+        SELECT *
+        FROM c_goods a LEFT JOIN c_category_goods b ON a.sid = b.goods_sid
+        <where>
+            <if test="categorySid != null">
+                b.sid = #{categorySid}
+            </if>
+            <if test="sn != null">
+                and a.sn = #{sn}
+            </if>
+            <if test="name != null">
+                and a.name = #{name}
+            </if>
+            <if test="putInStatus != null">
+                and a.put_in_status = #{putInStatus}
+            </if>
+        </where>
+    </select>
+    <select id="getGoodsBySid" parameterType="string" resultMap="goods">
+        SELECT *
+        FROM c_goods
+        WHERE sid = #{sid}
+    </select>
+    <select id="getGoodsBySn" parameterType="string" resultMap="goods">
+        SELECT *
+        FROM c_goods
+        WHERE sn = #{sn}
+    </select>
+</mapper>

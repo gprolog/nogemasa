@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.management.mapper.order.GodownOrderListMapper">
+    <resultMap id="godownOrderList" type="GodownOrderListPojo">
+        <id property="sid" column="sid"/>
+        <result property="count" column="count"/>
+        <result property="costPrice" column="cost_price"/>
+        <association property="godownOrder" column="order_godown_sid" select="com.nogemasa.management.mapper.order.GodownOrderMapper.getGodownOrderBySid"/>
+        <association property="goods" column="goods_sid" select="com.nogemasa.management.mapper.goods.GoodsMapper.getGoodsBySid"/>
+    </resultMap>
+    <insert id="addGodownOrderList" parameterType="GodownOrderListPojo" useGeneratedKeys="true" keyProperty="sid">
+        INSERT INTO c_order_godown_list (order_godown_sid, goods_sid, count, cost_price)
+        VALUES (#{godownOrder.sid}, #{goods.sid}, #{count}, ${costPrice})
+    </insert>
+    <update id="updateGodownOrderList" parameterType="GodownOrderListPojo">
+        UPDATE c_order_godown_list
+        SET count = #{count}, cost_price = ${costPrice}
+        WHERE sid = #{sid}
+    </update>
+    <select id="getAllGodownOrderList" parameterType="string" resultMap="godownOrderList">
+        SELECT *
+        FROM c_order_godown_list
+        WHERE order_godown_sid = #{orderGodownSid}
+    </select>
+    <select id="getGodownOrderList" parameterType="GodownOrderListPojo" resultMap="godownOrderList">
+        SELECT *
+        FROM c_order_godown_list
+        WHERE order_godown_sid = #{godownOrder.sid}
+              AND goods_sid = #{goods.sid}
+    </select>
+</mapper>

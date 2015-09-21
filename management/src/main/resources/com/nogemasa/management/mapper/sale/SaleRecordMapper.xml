@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.management.mapper.sale.SaleRecordMapper">
+    <insert id="addSaleRecord" useGeneratedKeys="true" keyProperty="sid">
+        INSERT INTO c_sale_record (store_sid, employee_sid, goods_sn, member_card_no, promotion_sid,
+        goods_original_cost, goods_price, sale_time)
+        VALUES
+        (#{store.sid}, #{employee.sid}, #{goods.sn}, #{member.card_no}, #{promotion.sid}, ${goodsOriginalCost},
+        ${goodsPrice}, sysdate())
+    </insert>
+</mapper>

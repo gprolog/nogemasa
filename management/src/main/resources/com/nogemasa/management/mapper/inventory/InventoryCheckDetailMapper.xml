@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.management.mapper.inventory.InventoryCheckDetailMapper">
+    <resultMap id="inventoryCheckDetail" type="InventoryCheckDetailPojo">
+        <id property="sid" column="sid"/>
+        <result property="preCount" column="pre_count"/>
+        <result property="postCount" column="post_count"/>
+        <result property="deltaCount" column="delta_count"/>
+        <association property="checkContent" column="content_sid"
+                     select="com.nogemasa.management.mapper.inventory.InventoryCheckContentMapper.getInventoryCheckContentBySid"/>
+        <association property="goods" column="goods_sid"
+                     select="com.nogemasa.management.mapper.goods.GoodsMapper.getGoodsBySid"/>
+    </resultMap>
+    <insert id="addInventoryCheckDetail" parameterType="InventoryCheckDetailPojo" useGeneratedKeys="true"
+            keyProperty="sid">
+        INSERT INTO c_inventory_check_detail (content_sid, goods_sid, pre_count, post_count, delta_count)
+        VALUES (#{checkContent.sid}, #{goods.sid}, #{preCount}, ${postCount}, ${deltaCount})
+    </insert>
+    <update id="updateInventoryCheckDetail" parameterType="GodownOrderListPojo">
+        UPDATE c_inventory_check_detail
+        SET post_count = #{postCount}, delta_count = ${deltaCount}
+        WHERE sid = #{sid}
+    </update>
+    <delete id="deleteInventoryCheckDetail" parameterType="string">
+        DELETE FROM c_inventory_check_detail
+        WHERE sid = #{sid}
+    </delete>
+    <select id="getAllInventoryCheckDetail" parameterType="string" resultMap="inventoryCheckDetail">
+        SELECT *
+        FROM c_inventory_check_detail
+        WHERE content_sid = #{checkContentSid}
+    </select>
+    <select id="getInventoryCheckDetail" parameterType="InventoryCheckDetailPojo" resultMap="inventoryCheckDetail">
+        SELECT *
+        FROM c_inventory_check_detail
+        WHERE content_sid = #{checkContent.sid}
+        AND goods_sid = #{goods.sid}
+    </select>
+</mapper>

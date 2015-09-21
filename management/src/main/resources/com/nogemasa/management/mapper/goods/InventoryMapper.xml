@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.management.mapper.goods.InventoryMapper">
+    <resultMap id="inventory" type="InventoryPojo">
+        <id property="sid" column="sid"/>
+        <result property="count" column="count"/>
+        <association property="store" column="store_sid"
+                     select="com.nogemasa.management.mapper.store.StoreMapper.loadStoreBySid"/>
+        <association property="goods" column="goods_sid"
+                     select="com.nogemasa.management.mapper.goods.GoodsMapper.getGoodsBySid"/>
+    </resultMap>
+    <insert id="addInventory">
+        INSERT INTO c_inventory (store_sid, goods_sid, count) VALUES (#{storeSid}, #{goodsSid}, ${count})
+    </insert>
+    <update id="updateInventoryCount">
+        UPDATE c_inventory
+        SET count = count + ${deltaCount}
+        WHERE store_sid = #{storeSid} AND goods_sid = #{goodsSid}
+    </update>
+    <update id="reduceInventoryCount4Sale">
+        UPDATE c_inventory
+        SET count = count - 1
+        WHERE store_sid = #{storeSid} AND goods_sid = #{goodsSid}
+    </update>
+    <select id="getInventory" resultMap="inventory">
+        SELECT *
+        FROM c_inventory
+        WHERE goods_sid = #{goodsSid}
+        AND store_sid = #{storeSid}
+    </select>
+    <select id="getInventoryList" resultMap="inventory">
+        SELECT *
+        FROM c_inventory
+    </select>
+</mapper>

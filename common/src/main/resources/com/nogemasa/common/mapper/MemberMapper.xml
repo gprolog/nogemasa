@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.common.mapper.MemberMapper">
+    <resultMap id="member" type="MemberPojo">
+        <id property="sid" column="sid"/>
+        <result property="card_no" column="card_no"/>
+        <result property="points" column="points"/>
+        <association property="memberInfo" column="openid"
+                     select="com.nogemasa.common.mapper.MemberInfoMapper.getMemberByOpenId"/>
+    </resultMap>
+    <insert id="addMember">
+        INSERT INTO c_member (openid, points, card_no) VALUES (#{memberInfo.openid}, ${points}, #{card_no})
+    </insert>
+    <update id="addPointsForMember">
+        UPDATE c_member
+        SET points = points + ${points}
+        WHERE card_no = #{cardNo}
+    </update>
+    <update id="updateMemberPoints">
+        UPDATE c_member
+        SET points = ${points}
+        WHERE openid #{openid}
+    </update>
+    <select id="getMemberByOpenId" resultMap="member">
+        SELECT *
+        FROM c_member
+        WHERE openid = #{openId}
+    </select>
+    <select id="getMemberByCardNo" resultMap="member">
+        SELECT *
+        FROM c_member
+        WHERE card_no = #{cardNo}
+    </select>
+    <select id="getMemberList" resultMap="member">
+        SELECT *
+        FROM c_member
+    </select>
+    <select id="getMemberByCardNoSimple" resultType="MemberPojo">
+        SELECT *
+        FROM c_member
+        WHERE card_no = #{cardNo}
+    </select>
+</mapper>

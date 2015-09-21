@@ -1,0 +1,97 @@
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-style: normal;
+    font-size: 12px;
+}
+
+html, body {
+    height: 100%;
+    background: #eff0ea
+}
+
+.admlogbox {
+    height: 330px;
+    position: relative;
+    top: 50%;
+    margin-top: -165px;
+    background: url(../images/admlogline.png) repeat-x 0 155px
+}
+
+.admlogmain {
+    width: 586px;
+    height: 330px;
+    margin: 0 auto;
+}
+
+.linklogo {
+    display: block;
+    width: 266px;
+    height: 58px;
+    margin-left: 160px
+}
+
+.systitle {
+    width: 168px;
+    height: 24px;
+    font-size: 28px;
+    color: #006699;
+    position: relative;
+    top: 35px;
+    margin: auto;
+}
+
+.admlogmain ul {
+    margin-top: 90px
+}
+
+.admlogmain li {
+    margin-bottom: 10px
+}
+
+.admlogmain li.tips {
+    text-align: center;
+    height: 20px;
+    margin-bottom: 2px;
+    text-indent: 4em;
+    color: #f00
+}
+
+.admlogmain label, .admlogmain .coll {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1
+}
+
+.admlogmain label {
+    width: 237px;
+    text-align: right
+}
+
+.admlogmain input {
+    vertical-align: middle
+}
+
+.admlog_text {
+    width: 161px;
+    height: 29px;
+    line-height: 29px;
+    padding-left: 3px;
+    background: url(../images/admlogform.png) no-repeat 0 0;
+    border: 0
+}
+
+.admlog_btn {
+    width: 66px;
+    height: 24px;
+    cursor: pointer;
+    background: url(../images/admlogform.png) no-repeat 0 -29px;
+    border: 0;
+    color: #fff
+}
+
+.admlogmain p {
+    text-align: center;
+    color: #999
+}

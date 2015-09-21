@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.common.auth.mapper.GroupMapper">
+    <resultMap id="CGroup" type="GroupPojo">
+        <id property="sid" column="sid"/>
+        <result property="groupName" column="group_name"/>
+        <result property="groupDesc" column="group_desc"/>
+    </resultMap>
+    <!-- 添加用户组数据 -->
+    <insert id="addGroup" parameterType="GroupPojo" useGeneratedKeys="true" keyProperty="sid">
+        INSERT INTO s_group (group_name, group_desc)
+        VALUES (#{groupName}, #{groupDesc})
+    </insert>
+    <!-- 修改用户组数据 -->
+    <update id="updateGroup" parameterType="GroupPojo">
+        UPDATE s_group
+        SET group_name = #{groupName}, group_desc = #{groupDesc}
+        WHERE sid = #{sid}
+    </update>
+    <!-- 删除用户组数据 -->
+    <delete id="deleteGroup" parameterType="GroupPojo">
+        DELETE FROM s_group
+        WHERE sid = #{sid}
+    </delete>
+    <!-- 根据用户信息查询用户组列表 -->
+    <select id="loadUserGroups" parameterType="UserPojo" resultMap="CGroup">
+        SELECT g.*
+        FROM
+            `s_group` g,
+            `s_group_user` gu
+        WHERE
+            g.`sid` = gu.`group_sid`
+            AND gu.`user_sid` = #{sid}
+    </select>
+    <!-- 根据用户组信息查询用户组列表 -->
+    <select id="getAllGroups" parameterType="GroupPojo" resultMap="CGroup">
+        SELECT *
+        FROM s_group
+        <where>
+            <if test="sid != null">
+                sid = #{sid}
+            </if>
+            <if test="groupName != null">
+                AND group_name = #{groupName}
+            </if>
+        </where>
+    </select>
+</mapper>

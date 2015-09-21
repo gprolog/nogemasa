@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.management.mapper.sale.FinanceAccountMapper">
+    <resultMap id="financeAccount" type="FinanceAccountPojo">
+        <id property="sid" column="sid"/>
+        <result property="accountType" column="account_type"/>
+        <result property="accountRemainingSun" column="account_remaining_sum"/>
+    </resultMap>
+    <insert id="addFinanceAccount">
+        INSERT INTO c_finance_account (account_type, account_remaining_sum)
+        VALUES (#{accountType}, ${accountRemainingSum})
+    </insert>
+    <update id="updateFinanceAccount">
+        UPDATE c_finance_account
+        SET account_remaining_sum = account_remaining_sum + ${accountRemainingSum}
+        WHERE account_type = #{accountType}
+    </update>
+    <select id="getFinanceAccountList" parameterType="string" resultMap="financeAccount">
+        SELECT * FROM c_finance_account
+        <where>
+            <if test="_parameter != null">
+                account_type = #{accountType}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.common.auth.mapper.AuthorityMapper">
+    <resultMap id="CAuthority" type="AuthorityPojo">
+        <id property="sid" column="sid"/>
+        <result property="authority" column="authority"/>
+        <result property="authorityDesc" column="authority_desc"/>
+    </resultMap>
+    <!-- 添加权限数据 -->
+    <insert id="addAuthority" parameterType="AuthorityPojo" useGeneratedKeys="true" keyProperty="sid">
+        INSERT INTO s_authority (authority, authority_desc)
+        VALUES (#{authority}, #{authorityDesc})
+    </insert>
+    <!-- 修改权限信息 -->
+    <update id="updateAuthority" parameterType="AuthorityPojo">
+        UPDATE s_authority
+        SET authority = #{authority}, authority_desc = #{authorityDesc}
+        WHERE sid = #{sid}
+    </update>
+    <!-- 删除权限信息 -->
+    <delete id="deleteAuthority" parameterType="string">
+        DELETE FROM s_authority
+        WHERE sid = #{sid}
+    </delete>
+    <!-- 根据用户组查询权限 -->
+    <select id="findAuthorityOfGroups" parameterType="list" resultMap="CAuthority">
+        SELECT a.*
+        FROM
+        `s_authority` a,
+        `s_group_authority` ga
+        WHERE
+        a.sid = ga.authority_sid
+        AND ga.group_sid IN
+        <foreach collection="list" open="(" close=")" item="group" separator=",">
+            #{group.sid}
+        </foreach>
+    </select>
+    <!-- 查询权限列表 -->
+    <select id="getAllAuthorities" parameterType="AuthorityPojo" resultMap="CAuthority">
+        SELECT *
+        FROM s_authority a
+        <where>
+            <if test="sid != null">
+                a.sid = #{sid}
+            </if>
+            <if test="authority != null">
+                AND a.authority = #{authority}
+            </if>
+        </where>
+    </select>
+</mapper>

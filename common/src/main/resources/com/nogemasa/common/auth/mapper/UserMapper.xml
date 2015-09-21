@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nogemasa.common.auth.mapper.UserMapper">
+    <insert id="addUser" parameterType="UserPojo" useGeneratedKeys="true" keyProperty="sid">
+        INSERT INTO s_users (username, password, enabled)
+        VALUES (#{username}, '111111', #{enabled})
+    </insert>
+    <update id="updateUser">
+        UPDATE s_users
+        SET enabled = #{enabled}
+        WHERE sid = #{sid}
+    </update>
+    <delete id="deleteUser" parameterType="string">
+        DELETE FROM s_users
+        WHERE sid = #{sid}
+    </delete>
+    <select id="loadUserByUsername" parameterType="string" resultType="com.nogemasa.common.auth.pojo.UserPojo">
+        SELECT *
+        FROM
+            `s_users` u
+        WHERE
+            u.`username` = #{username}
+    </select>
+    <select id="getAllUsers" resultType="com.nogemasa.common.auth.pojo.UserPojo">
+        SELECT
+            sid,
+            username,
+            enabled
+        FROM s_users
+    </select>
+    <select id="loadUserBySid" parameterType="string" resultType="com.nogemasa.common.auth.pojo.UserPojo">
+        SELECT *
+        FROM
+            s_users u
+        WHERE
+            u.sid = #{sid}
+    </select>
+</mapper>

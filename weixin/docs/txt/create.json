@@ -1,0 +1,24 @@
+{
+  "button": [
+    {
+      "type": "click",
+      "name": "最新活动",
+      "key": "zxhd"
+    },
+    {
+      "type": "click",
+      "name": "在线商城",
+      "key": "zxsc"
+    },
+    {
+      "name": "会员",
+      "sub_button": [
+        {
+          "type": "click",
+          "name": "会员之家",
+          "key": "hyzj"
+        }
+      ]
+    }
+  ]
+}

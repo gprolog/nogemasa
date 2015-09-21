@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.management.mapper.sale.PromotionMapper">
+    <resultMap id="promotion" type="PromotionPojo">
+        <id property="sid" column="sid"/>
+        <result property="promotionType" column="promotion_type"/>
+        <result property="countMethod" column="count_method"/>
+        <association property="store" column="store_sid"
+                     select="com.nogemasa.management.mapper.store.StoreMapper.loadStoreBySid"/>
+    </resultMap>
+    <select id="listPromotion" resultMap="promotion">
+        SELECT *
+        FROM c_promotion
+    </select>
+    <select id="getPromotionBySid" resultMap="promotion">
+        SELECT *
+        FROM c_promotion
+        WHERE sid = #{sid}
+    </select>
+</mapper>

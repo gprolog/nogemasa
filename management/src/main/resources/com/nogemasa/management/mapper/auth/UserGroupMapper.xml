@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.management.mapper.auth.UserGroupMapper">
+    <resultMap id="userGroup" type="com.nogemasa.management.pojo.UserGroup">
+        <id property="sid" column="sid"/>
+        <result property="userSid" column="user_sid"/>
+        <result property="groupSid" column="group_sid"/>
+        <result property="groupName" column="group_name"/>
+        <result property="groupDesc" column="group_desc"/>
+    </resultMap>
+    <insert id="insertGroupOfUser" parameterType="UserGroup">
+        INSERT INTO s_group_user (group_sid, user_sid)
+        VALUES (#{groupSid}, #{userSid})
+    </insert>
+    <delete id="deleteGroupOfUser" parameterType="UserGroup">
+        DELETE FROM s_group_user
+        WHERE sid = #{sid}
+    </delete>
+    <select id="findGroupsOfUser" parameterType="UserPojo" resultMap="userGroup">
+        SELECT
+            gu.sid,
+            gu.user_sid,
+            gu.group_sid,
+            g.group_name,
+            g.group_desc
+        FROM s_group g LEFT JOIN s_group_user gu ON g.sid = gu.group_sid
+        WHERE gu.user_sid = #{sid}
+    </select>
+    <select id="findGroupsOfUserByGroup" parameterType="GroupPojo" resultMap="userGroup">
+        SELECT
+            gu.sid,
+            gu.user_sid,
+            gu.group_sid,
+            g.group_name,
+            g.group_desc
+        FROM s_group g LEFT JOIN s_group_user gu ON g.sid = gu.group_sid
+        WHERE gu.group_sid = #{sid}
+    </select>
+</mapper>

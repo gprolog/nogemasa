@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.management.mapper.auth.GroupAuthorityMapper">
+    <resultMap id="groupAuthority" type="com.nogemasa.management.pojo.GroupAuthority">
+        <id property="sid" column="sid"/>
+        <result property="groupSid" column="group_sid"/>
+        <result property="authoritySid" column="authority_sid"/>
+        <result property="authority" column="authority"/>
+        <result property="authorityDesc" column="authority_desc"/>
+    </resultMap>
+    <insert id="insertAuthorityOfGroup" parameterType="GroupAuthority">
+        INSERT INTO s_group_authority (group_sid, authority_sid)
+        VALUES (#{groupSid}, #{authoritySid})
+    </insert>
+    <delete id="deleteAuthorityOfGroup" parameterType="GroupAuthority">
+        DELETE FROM s_group_authority
+        WHERE sid = #{sid}
+    </delete>
+    <select id="findAuthorityOfGroups" parameterType="list" resultMap="groupAuthority">
+        SELECT
+            ga.sid,
+            ga.group_sid,
+            ga.authority_sid,
+            a.authority,
+            a.authority_desc
+        FROM s_authority a LEFT JOIN s_group_authority ga ON a.sid = ga.authority_sid
+        WHERE ga.group_sid IN
+        <foreach collection="list" open="(" close=")" item="group" separator=",">
+            #{group.sid}
+        </foreach>
+    </select>
+    <select id="findAuthorityOfGroupByAuthority" parameterType="AuthorityPojo" resultMap="groupAuthority">
+        SELECT
+            ga.sid,
+            ga.group_sid,
+            ga.authority_sid,
+            a.authority,
+            a.authority_desc
+        FROM s_authority a LEFT JOIN s_group_authority ga ON a.sid = ga.authority_sid
+        WHERE ga.authority_sid = #{sid}
+    </select>
+</mapper>

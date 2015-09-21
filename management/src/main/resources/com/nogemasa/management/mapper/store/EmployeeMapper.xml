@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.management.mapper.store.EmployeeMapper">
+    <resultMap id="employee" type="EmployeePojo">
+        <id column="sid" property="sid"/>
+        <result column="name" property="name"/>
+        <result column="entry_time" property="entryTime"/>
+        <result column="fired_time" property="firedTime"/>
+        <result column="identity_no" property="identityNo"/>
+        <result column="birthday" property="birthday"/>
+        <result column="phone" property="phone"/>
+        <result column="qq" property="qq"/>
+        <result column="status" property="status"/>
+        <association property="store" column="store_sid"
+                     select="com.nogemasa.management.mapper.store.StoreMapper.loadStoreBySid"/>
+        <association property="user" column="user_sid"
+                     select="com.nogemasa.management.mapper.auth.UserMapper.loadUserBySid"/>
+    </resultMap>
+    <insert id="addEmployee" parameterType="EmployeePojo" useGeneratedKeys="true" keyProperty="sid">
+        INSERT INTO c_employee (name, entry_time, identity_no, phone, qq, store_sid, status)
+        VALUES (#{name}, #{entryTime}, #{identityNo}, #{phone}, #{qq}, #{store.sid}, '1')
+    </insert>
+    <update id="updateEmployee" parameterType="EmployeePojo">
+        UPDATE c_employee
+        SET name = #{name}, entry_time = #{entryTime}, identity_no = #{identityNo}, phone = #{phone}, qq = #{qq}
+        WHERE sid = #{sid}
+    </update>
+    <select id="listEmployeeByStoreSid" parameterType="string" resultMap="employee">
+        SELECT *
+        FROM c_employee
+        <where>
+            <if test="_parameter != null">
+                store_sid = #{storeSid}
+            </if>
+        </where>
+    </select>
+    <select id="getEmployeeBySid" parameterType="string" resultMap="employee">
+        SELECT *
+        FROM c_employee
+        WHERE sid = #{sid}
+    </select>
+</mapper>

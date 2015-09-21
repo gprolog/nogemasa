@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.management.mapper.sale.SaleRecordContentMapper">
+    <resultMap id="saleRecordContent" type="SaleRecordContentPojo">
+        <id property="sid" column="sid"/>
+        <result property="saleTime" column="sale_time"/>
+        <result property="costType" column="cost_type"/>
+        <result property="totalPrice" column="total_price"/>
+        <result property="totalCost" column="total_cost"/>
+        <association property="store" column="store_sid"
+                     select="com.nogemasa.management.mapper.store.StoreMapper.loadStoreBySid"/>
+        <association property="employee" column="employee_sid"
+                     select="com.nogemasa.management.mapper.store.EmployeeMapper.getEmployeeBySid"/>
+        <association property="member" column="member_card_no"
+                     select="com.nogemasa.common.mapper.MemberMapper.getMemberByCardNo"/>
+        <association property="promotion" column="promotion_sid"
+                     select="com.nogemasa.management.mapper.sale.PromotionMapper.getPromotionBySid"/>
+    </resultMap>
+    <insert id="addSaleRecordContent" parameterType="SaleRecordContentPojo" useGeneratedKeys="true" keyProperty="sid">
+        INSERT INTO c_sale_record_content (store_sid, employee_sid, member_card_no, promotion_sid, sale_time, cost_type,
+        total_price, total_cost)
+        VALUES
+        (#{store.sid}, #{employee.sid}, #{member.card_no}, #{promotion.sid}, sysdate(), #{costType}, ${totalPrice},
+        ${totalCost})
+    </insert>
+    <select id="getSaleRecordContentList" resultMap="saleRecordContent">
+        SELECT *
+        FROM c_sale_record_content
+    </select>
+    <select id="getSaleRecordContentBySid" resultMap="saleRecordContent">
+        SELECT *
+        FROM c_sale_record_content
+        WHERE sid = #{sid}
+    </select>
+</mapper>

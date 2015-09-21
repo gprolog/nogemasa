@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.common.message.mapper.ReplyNewsMessageMapper">
+    <resultMap id="replyNewsMessage" type="com.nogemasa.common.message.pojo.ReplyNewsMessagePojo">
+        <id property="sid" column="sid"/>
+        <result property="messageStatus" column="message_status"/>
+        <result property="title" column="title"/>
+        <result property="description" column="description"/>
+        <result property="picUrl" column="pic_url"/>
+        <result property="url" column="url"/>
+        <result property="createTime" column="create_time"/>
+        <result property="effectTime" column="effect_time"/>
+        <result property="invalidTime" column="invalid_time"/>
+    </resultMap>
+    <select id="getAllNewsMessages" resultMap="replyNewsMessage">
+        SELECT *
+        FROM c_reply_news_message
+    </select>
+    <select id="getNewsMessages" resultMap="replyNewsMessage">
+        <![CDATA[
+        SELECT *
+        FROM c_reply_news_message
+        WHERE message_status = 1
+              AND effect_time <= sysdate()
+              AND (invalid_time IS NULL || invalid_time >= sysdate())
+        ORDER BY effect_time DESC
+        ]]>
+    </select>
+</mapper>

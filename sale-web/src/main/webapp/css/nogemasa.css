@@ -1,0 +1,16 @@
+body {
+    background-color: #CCC;
+}
+
+#content {
+    background-color: #FFF;
+    border-radius: 5px;
+}
+
+#content .main {
+    padding: 20px;
+}
+
+#content p {
+    line-height: 30px;
+}

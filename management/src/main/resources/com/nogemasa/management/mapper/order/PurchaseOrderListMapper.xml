@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.management.mapper.order.PurchaseOrderListMapper">
+    <resultMap id="purchaseOrderList" type="PurchaseOrderListPojo">
+        <id property="sid" column="sid"/>
+        <result property="count" column="count"/>
+        <association property="purchaseOrder" column="order_purchase_sid" select="com.nogemasa.management.mapper.order.PurchaseOrderMapper.getPurchaseOrderBySid"/>
+        <association property="goods" column="goods_sid" select="com.nogemasa.management.mapper.goods.GoodsMapper.getGoodsBySid"/>
+    </resultMap>
+    <insert id="addPurchaseOrderList" parameterType="PurchaseOrderListPojo" useGeneratedKeys="true" keyProperty="sid">
+        INSERT INTO c_order_purchase_list (order_purchase_sid, goods_sid, count)
+        VALUES (#{purchaseOrder.sid}, #{goods.sid}, #{count})
+    </insert>
+    <update id="updatePurchaseOrderList" parameterType="PurchaseOrderListPojo">
+        UPDATE c_order_purchase_list
+        SET count = #{count}
+        WHERE sid = #{sid}
+    </update>
+    <select id="getAllPurchaseOrderList" parameterType="string" resultMap="purchaseOrderList">
+        SELECT
+              sid,
+              goods_sid,
+              order_purchase_sid,
+              count
+        FROM c_order_purchase_list
+        WHERE order_purchase_sid = #{orderPurchaseSid}
+    </select>
+    <select id="getPurchaseOrderList" parameterType="PurchaseOrderListPojo" resultMap="purchaseOrderList">
+        SELECT
+            sid,
+            goods_sid,
+            order_purchase_sid,
+            count
+        FROM c_order_purchase_list
+        WHERE order_purchase_sid = #{purchaseOrder.sid}
+              AND goods_sid = #{goods.sid}
+    </select>
+</mapper>

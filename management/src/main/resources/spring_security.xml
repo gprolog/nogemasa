@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/security
+                                 http://www.springframework.org/schema/security/spring-security-4.0.xsd
+                                 http://www.springframework.org/schema/beans
+                                 http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+    <beans:bean id="userDetailsService" class="com.nogemasa.management.security.CUserDetailsService"/>
+
+    <beans:bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+        <beans:constructor-arg>
+            <beans:list>
+                <beans:bean class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+                    <beans:property name="userDetailsService" ref="userDetailsService"/>
+                </beans:bean>
+            </beans:list>
+        </beans:constructor-arg>
+    </beans:bean>
+
+    <beans:bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"/>
+
+    <http use-expressions="true" authentication-manager-ref="authenticationManager"
+          entry-point-ref="authenticationEntryPoint">
+        <intercept-url pattern="/index.html" access="isAuthenticated()"/>
+        <intercept-url pattern="/admin/**" access="hasAuthority('ADMIN')"/>
+        <form-login authentication-failure-url="/login.html?error=true"
+                    default-target-url="/index.html" login-page="/login.html"
+                    login-processing-url="/login_check.html" password-parameter="password"
+                    username-parameter="username" always-use-default-target="true"/>
+        <csrf disabled="true"/>
+        <logout logout-success-url="/login.html" logout-url="/logout.html"/>
+        <access-denied-handler error-page="/login.html?deny=true"/>
+    </http>
+</beans:beans>

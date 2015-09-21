@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nogemasa.common.mapper.MemberInfoMapper">
+    <resultMap id="memberInfo" type="MemberInfoPojo">
+        <id property="sid" column="sid"/>
+        <result property="subscribe" column="subscribe"/>
+        <result property="openid" column="openid"/>
+        <result property="nickname" column="nickname"/>
+        <result property="sex" column="sex"/>
+        <result property="city" column="city"/>
+        <result property="country" column="country"/>
+        <result property="province" column="province"/>
+        <result property="language" column="language"/>
+        <result property="headimgurl" column="headimgurl"/>
+        <result property="subscribe_time" column="subscribe_time"/>
+        <result property="unionid" column="unionid"/>
+        <result property="remark" column="remark"/>
+        <result property="groupid" column="groupid"/>
+    </resultMap>
+    <insert id="addMemberInfoBatch" parameterType="list">
+        INSERT INTO c_member_info(subscribe, openid, nickname, sex, city, country, province, language, headimgurl,
+        subscribe_time, unionid, remark, groupid)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.subscribe}, #{item.openid}, #{item.nickname}, #{item.sex}, #{item.city}, #{item.country},
+            #{item.province}, #{item.language}, #{item.headimgurl}, #{item.subscribe_time}, #{item.unionid},
+            #{item.remark}, #{item.groupid})
+        </foreach>
+    </insert>
+    <insert id="addMemberInfo">
+        INSERT INTO c_member_info(subscribe, openid, nickname, sex, city, country, province, language, headimgurl,
+        subscribe_time, unionid, remark, groupid)
+        VALUE (#{subscribe}, #{openid}, #{nickname}, #{sex}, #{city}, #{country}, #{province}, #{language},
+         #{headimgurl}, #{subscribe_time}, #{unionid}, #{remark}, #{groupid})
+    </insert>
+    <update id="updateMemberInfo" parameterType="MemberInfoPojo">
+        UPDATE c_member_info
+        SET subscribe      = #{subscribe}, nickname = #{nickname}, sex = #{sex}, city = #{city},
+        country        = #{country}, province = #{province}, language = #{language}, headimgurl = #{headimgurl},
+        subscribe_time = #{subscribe_time}, unionid = #{unionid}, remark = #{remark}, groupid = #{groupid}
+        WHERE openid = #{openid}
+    </update>
+    <update id="disabledMemberInfo" parameterType="MemberInfoPojo">
+        UPDATE c_member_info SET subscribe = 0 WHERE openid = #{openid}
+    </update>
+    <update id="enabledMemberInfo">
+        UPDATE c_member_info SET subscribe = 1 WHERE openid = #{openid}
+    </update>
+    <select id="getMemberByOpenId" parameterType="string" resultMap="memberInfo">
+        SELECT * FROM c_member_info WHERE openid = #{openId}
+    </select>
+    <select id="listMemberByParam" parameterType="map" resultMap="memberInfo">
+        SELECT *
+        FROM c_member_info
+        <where>
+            <if test="groupId != null and groupId != ''">
+                groupid = #{groupid}
+            </if>
+            <if test="queryStr != null and queryStr != ''">
+                AND LOWER(nickname) LIKE CONCAT(CONCAT('%', LOWER(#{queryStr})), '%')
+            </if>
+        </where>
+    </select>
+</mapper>
