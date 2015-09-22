@@ -9,7 +9,11 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  * @author liuxh
  * @since 1.0.0
  */
-public abstract class XStreamHandle {
+public final class XStreamHandle {
+    private XStreamHandle() {
+        throw new AssertionError("No com.nogemasa.weixin.common.util.XStreamHandle instances for you!");
+    }
+
     public static String toXml(Object obj) {
         XStream xstream = new XStream(new DomDriver("utf8"));
         xstream.processAnnotations(obj.getClass());

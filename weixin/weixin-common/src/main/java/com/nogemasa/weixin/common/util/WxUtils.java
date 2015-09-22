@@ -24,8 +24,12 @@ import java.util.Set;
  *
  * @author liuxh
  */
-public abstract class WxUtils {
+public final class WxUtils {
     private final static Logger logger = LoggerFactory.getLogger(WxUtils.class);
+
+    private WxUtils() {
+        throw new AssertionError("No com.nogemasa.weixin.common.util.WxUtils.WxUtils instances for you!");
+    }
 
     /**
      * 获取access_token的接口地址（GET）

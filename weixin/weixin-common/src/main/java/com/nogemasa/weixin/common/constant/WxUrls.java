@@ -6,7 +6,11 @@ package com.nogemasa.weixin.common.constant;
  * @author liuxh
  * @since 1.0.0
  */
-public interface WxUrls {
+public final class WxUrls {
+    private WxUrls() {
+        throw new AssertionError("No com.nogemasa.weixin.common.constant.WxUrls instances for you!");
+    }
+
     /**
      * 获取 access_token 接口
      */
