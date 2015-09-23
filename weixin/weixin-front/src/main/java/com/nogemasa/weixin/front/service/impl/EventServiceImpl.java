@@ -6,6 +6,7 @@ import com.nogemasa.common.mapper.MemberMapper;
 import com.nogemasa.common.pojo.MemberInfoPojo;
 import com.nogemasa.common.pojo.MemberPojo;
 import com.nogemasa.weixin.common.component.AccessTokenKeeper;
+import com.nogemasa.weixin.common.constant.WxConstant;
 import com.nogemasa.weixin.common.util.WxUtils;
 import com.nogemasa.weixin.front.operation.IMsgOperation;
 import com.nogemasa.weixin.front.pojo.*;
@@ -13,7 +14,6 @@ import com.nogemasa.weixin.front.service.IEventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,8 +35,6 @@ public class EventServiceImpl implements IEventService {
     private MemberMapper memberMapper;
     @Autowired
     private IMsgOperation msgOperation;
-    @Value("${weixin.address}")
-    private String weixinAddress;
 
     @Override
     public IMessage subscribeEvent(EventPojo event) {
@@ -108,8 +106,8 @@ public class EventServiceImpl implements IEventService {
             ItemMessage item = new ItemMessage();
             item.setTitle("会员信息");
             item.setDescription("会员卡号：" + member.getCard_no() + "\n会员积分：" + member.getPoints() + "\n点击查看会员卡");
-            item.setPicUrl(weixinAddress + "/service/bar-code/image/" + member.getCard_no() + ".png");
-            item.setUrl(weixinAddress + "/service/bar-code.html?cardNo=" + member.getCard_no());
+            item.setPicUrl(WxConstant.getWxWebAddress() + "/service/bar-code/image/" + member.getCard_no() + ".png");
+            item.setUrl(WxConstant.getWxWebAddress() + "/service/bar-code.html?cardNo=" + member.getCard_no());
             List<ItemMessage> articles = Lists.newArrayList(item);
             message.setArticleCount(articles.size());
             message.setArticles(articles);

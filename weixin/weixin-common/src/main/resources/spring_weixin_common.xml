@@ -11,6 +11,7 @@
     <jee:jndi-lookup jndi-name="weixin/appSecret" id="weixin.appSecret" expected-type="java.lang.String"/>
     <jee:jndi-lookup jndi-name="weixin/token" id="weixin.token" expected-type="java.lang.String"/>
     <jee:jndi-lookup jndi-name="weixin/encodingAESKey" id="weixin.encodingAESKey" expected-type="java.lang.String"/>
+    <jee:jndi-lookup jndi-name="weixin/wxWebAddress" id="weixin.wxWebAddress" expected-type="java.lang.String"/>
 
     <bean id="accessTokenKeeper" class="com.nogemasa.weixin.common.component.AccessTokenKeeper"
           c:redisTemplate-ref="redisTemplate"/>
@@ -18,5 +19,6 @@
           c:appid-ref="weixin.appid"
           c:appSecret-ref="weixin.appSecret"
           c:token-ref="weixin.token"
-          c:encodingAESKey-ref="weixin.encodingAESKey"/>
+          c:encodingAESKey-ref="weixin.encodingAESKey"
+          c:wxWebAddress-ref="weixin.wxWebAddress"/>
 </beans>
