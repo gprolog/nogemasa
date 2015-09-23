@@ -44,7 +44,7 @@ public class CentralController {
             @RequestParam(value = "nonce", required = true) String nonce,
             @RequestParam(value = "echostr", required = true) String echostr) {
         logger.info(signature, timestamp, nonce, echostr);
-        return checkSignature(signature, WxConstant.token, timestamp, nonce) ? echostr : "Check fail";
+        return checkSignature(signature, WxConstant.getToken(), timestamp, nonce) ? echostr : "Check fail";
     }
 
     @RequestMapping(value = "", method = POST)

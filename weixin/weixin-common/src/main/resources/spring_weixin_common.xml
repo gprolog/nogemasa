@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+                           http://www.springframework.org/schema/jee
+                           http://www.springframework.org/schema/jee/spring-jee.xsd">
+    <jee:jndi-lookup jndi-name="weixin/appid" id="weixin.appid" expected-type="java.lang.String"/>
+    <jee:jndi-lookup jndi-name="weixin/appSecret" id="weixin.appSecret" expected-type="java.lang.String"/>
+    <jee:jndi-lookup jndi-name="weixin/token" id="weixin.token" expected-type="java.lang.String"/>
+    <jee:jndi-lookup jndi-name="weixin/encodingAESKey" id="weixin.encodingAESKey" expected-type="java.lang.String"/>
+
+    <bean id="accessTokenKeeper" class="com.nogemasa.weixin.common.component.AccessTokenKeeper"
+          c:redisTemplate-ref="redisTemplate"/>
+    <bean id="wxConstant" class="com.nogemasa.weixin.common.constant.WxConstant"
+          c:appid-ref="weixin.appid"
+          c:appSecret-ref="weixin.appSecret"
+          c:token-ref="weixin.token"
+          c:encodingAESKey-ref="weixin.encodingAESKey"/>
+</beans>

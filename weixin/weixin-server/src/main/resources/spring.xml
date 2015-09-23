@@ -77,13 +77,13 @@
     <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager"
           c:template-ref="redisTemplate"/>
 
-    <bean id="accessTokenKeeper" class="com.nogemasa.weixin.common.component.AccessTokenKeeper"
-          c:redisTemplate-ref="redisTemplate"/>
-
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-    <context:component-scan base-package="com.nogemasa.weixin.server"/>
     <!--添加签名切面+操作记录切面-->
     <import resource="spring-operation.xml"/>
     <!--公共操作-->
     <import resource="spring_common.xml"/>
+    <!--微信公共定义-->
+    <import resource="spring_weixin_common.xml"/>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <context:component-scan base-package="com.nogemasa.weixin.server"/>
 </beans>

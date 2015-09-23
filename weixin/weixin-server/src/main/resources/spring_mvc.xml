@@ -56,5 +56,5 @@
     <mvc:annotation-driven/>
     <!--拦截controller，下面这句必须放在spring mvc的配置中-->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
-    <context:component-scan base-package="com.nogemasa.weixin.front.controller"/>
+    <context:component-scan base-package="com.nogemasa.weixin.server.controller"/>
 </beans>

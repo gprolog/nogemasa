@@ -7,12 +7,31 @@ package com.nogemasa.weixin.common.constant;
  * @since 1.0.0
  */
 public final class WxConstant {
-    private WxConstant() {
-        throw new AssertionError("No com.nogemasa.weixin.common.constant.WxConstant instances for you!");
+    private static String appid;
+    private static String appSecret;
+    private static String token;
+    private static String encodingAESKey;
+
+    public WxConstant(String appid, String appSecret, String token, String encodingAESKey) {
+        WxConstant.appid = appid;
+        WxConstant.appSecret = appSecret;
+        WxConstant.token = token;
+        WxConstant.encodingAESKey = encodingAESKey;
     }
 
-    public static final String appid = "wx07606b9311cae097";
-    public static final String appSecret = "49f9cebb47f5f10f8ff27d9d0e24877e";
-    public static final String token = "nogemasa";
-    public static final String encodingAESKey = "TUTnxhRS484vc1x9xnJyzoiH8lFBcdhsAMefUAWNvO8";
+    public static String getAppid() {
+        return appid;
+    }
+
+    public static String getAppSecret() {
+        return appSecret;
+    }
+
+    public static String getToken() {
+        return token;
+    }
+
+    public static String getEncodingAESKey() {
+        return encodingAESKey;
+    }
 }

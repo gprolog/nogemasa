@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * 微信接口公共类，获取access_token等。
@@ -169,7 +172,6 @@ public final class WxUtils {
             memberInfoList.add(member);
         }
         */
-        /*
         ExecutorService threadPool = Executors.newFixedThreadPool(20 * Runtime.getRuntime().availableProcessors(),
                 r -> {
                     Thread thread = new Thread(r);
@@ -198,7 +200,8 @@ public final class WxUtils {
             countDownLatch.await();
             threadPool.shutdown();
         } catch (InterruptedException ignored) {
-        }*/
+        }
+        /*
         for (String openId : openIds) {
             int count = 1;
             do {
@@ -212,7 +215,7 @@ public final class WxUtils {
                 }
                 count += 1;
             } while (count <= 3);
-        }
+        }*/
         return memberInfoList;
     }
 

@@ -39,7 +39,7 @@ public class AccessTokenKeeper {
                 return accessToken;
             }
         }
-        AccessToken accessToken = WxUtils.getAccessToken(WxConstant.appid, WxConstant.appSecret);
+        AccessToken accessToken = WxUtils.getAccessToken(WxConstant.getAppid(), WxConstant.getAppSecret());
         this.stringValueCache.set(CACHE_KEY_ACCESS_TOKEN, accessToken.getToken(), accessToken.getExpiresIn(),
                 TimeUnit.SECONDS);
         logger.info("从微信获取的令牌为：{}，有效时间为：{}。", accessToken.getToken(), accessToken.getExpiresIn());
