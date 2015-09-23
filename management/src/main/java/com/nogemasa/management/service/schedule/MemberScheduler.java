@@ -33,7 +33,7 @@ public class MemberScheduler {
     private MemberInfoMapper memberInfoMapper;
     @Autowired
     private MemberMapper memberMapper;
-    @Value("${public.key.path}")
+    @Value("${private.key.path}")
     private String privateKeyFilePath;
 
     public synchronized void refreshMemberList() {

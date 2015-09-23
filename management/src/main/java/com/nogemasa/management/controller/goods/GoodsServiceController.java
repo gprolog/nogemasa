@@ -2,6 +2,7 @@ package com.nogemasa.management.controller.goods;
 
 import com.nogemasa.management.pojo.PricePojo;
 import com.nogemasa.management.service.goods.IPriceService;
+import com.nogemasa.signature.agent.annotation.SignatureVerifyService;
 import com.nogemasa.signature.util.json.MessageParser;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * <br/>create at 15-8-23
@@ -23,6 +25,8 @@ public class GoodsServiceController {
     private IPriceService priceService;
 
     @RequestMapping("/info")
+    @SignatureVerifyService
+    @ResponseBody
     public JSONObject getGoodsInfo(@RequestBody(required = false) String message,
             @RequestParam(value = "message", required = false) String messageGet) {
         JSONObject params = MessageParser.getParams(message, messageGet);

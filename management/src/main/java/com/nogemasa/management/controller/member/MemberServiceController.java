@@ -2,6 +2,7 @@ package com.nogemasa.management.controller.member;
 
 import com.nogemasa.common.pojo.MemberPojo;
 import com.nogemasa.management.service.member.IMemberService;
+import com.nogemasa.signature.agent.annotation.SignatureVerifyService;
 import com.nogemasa.signature.util.json.MessageParser;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class MemberServiceController {
     private IMemberService memberService;
 
     @RequestMapping("/info")
+    @SignatureVerifyService
     public JSONObject getGoodsInfo(@RequestBody(required = false) String message,
             @RequestParam(value = "message", required = false) String messageGet) {
         JSONObject params = MessageParser.getParams(message, messageGet);

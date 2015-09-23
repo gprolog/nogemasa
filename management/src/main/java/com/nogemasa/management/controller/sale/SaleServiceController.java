@@ -9,6 +9,7 @@ import com.nogemasa.management.service.sale.IFinanceAccountService;
 import com.nogemasa.management.service.sale.ISaleRecordContentService;
 import com.nogemasa.management.service.sale.ISaleRecordDetailService;
 import com.nogemasa.management.service.sale.ISaleService;
+import com.nogemasa.signature.agent.annotation.SignatureVerifyService;
 import com.nogemasa.signature.util.json.MessageParser;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -46,6 +47,7 @@ public class SaleServiceController {
     private ISaleRecordDetailService saleRecordDetailService;
 
     @RequestMapping("/addSaleRecord")
+    @SignatureVerifyService
     @ResponseBody
     public JSONObject addSaleRecord(@RequestBody(required = false) String message,
             @RequestParam(value = "message", required = false) String messageGet) {

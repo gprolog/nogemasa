@@ -23,6 +23,11 @@
         </dependency>
         <dependency>
             <groupId>com.nogemasa</groupId>
+            <artifactId>signature-agent</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.nogemasa</groupId>
             <artifactId>common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

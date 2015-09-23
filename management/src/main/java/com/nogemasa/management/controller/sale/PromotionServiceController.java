@@ -1,6 +1,7 @@
 package com.nogemasa.management.controller.sale;
 
 import com.nogemasa.management.service.sale.IPromotionService;
+import com.nogemasa.signature.agent.annotation.SignatureVerifyService;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,7 @@ public class PromotionServiceController {
     private IPromotionService promotionService;
 
     @RequestMapping("/getPromotionList")
+    @SignatureVerifyService
     @ResponseBody
     public JSONObject getPromotionList(@RequestBody(required = false) String message,
             @RequestParam(value = "message", required = false) String messageGet) {

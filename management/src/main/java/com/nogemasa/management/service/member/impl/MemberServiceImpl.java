@@ -32,7 +32,7 @@ public class MemberServiceImpl implements IMemberService {
     private MemberInfoMapper memberInfoMapper;
     @Autowired
     private MemberMapper memberMapper;
-    @Value("${public.key.path}")
+    @Value("${private.key.path}")
     private String privateKeyFilePath;
 
     @Override

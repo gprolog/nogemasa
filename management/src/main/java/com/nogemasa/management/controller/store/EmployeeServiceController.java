@@ -1,6 +1,7 @@
 package com.nogemasa.management.controller.store;
 
 import com.nogemasa.management.service.store.IEmployeeService;
+import com.nogemasa.signature.agent.annotation.SignatureVerifyService;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,7 @@ public class EmployeeServiceController {
     private IEmployeeService employeeService;
 
     @RequestMapping("/getEmployeeList")
+    @SignatureVerifyService
     @ResponseBody
     public String getEmployeeList(@RequestBody(required = false) String message,
             @RequestParam(value = "message", required = false) String messageGet) {

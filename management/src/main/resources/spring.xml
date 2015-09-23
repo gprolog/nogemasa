@@ -89,7 +89,10 @@
                         fixed-delay="${member.job.fixed.delay}"/>
     </task:scheduled-tasks>
 
-    <context:component-scan base-package="com.nogemasa.management"/>
-
+    <!--添加签名切面+操作记录切面-->
+    <import resource="spring-operation.xml"/>
+    <!--公共操作-->
     <import resource="spring_common.xml"/>
+
+    <context:component-scan base-package="com.nogemasa.management"/>
 </beans>
