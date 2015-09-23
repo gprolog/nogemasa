@@ -90,11 +90,15 @@ public class MemberScheduler {
             List<MemberInfoPojo> addList = new ArrayList<>(addMap.values());
             addList.forEach(memberInfo -> {
                 try {
-                    MemberPojo member = new MemberPojo();
-                    member.setPoints(0);
-                    member.setCard_no(memberInfo.getSubscribe_time() + "");
-                    member.setMemberInfo(memberInfo);
-                    memberMapper.addMember(member);
+                    MemberPojo member = memberMapper.getMemberByOpenId(memberInfo.getOpenid());
+                    if (member == null) {
+                        member = new MemberPojo();
+                        member.setPoints(0);
+                        member.setCard_no(memberInfo.getSubscribe_time() + "");
+                        member.setMemberInfo(memberInfo);
+                        memberMapper.addMember(member);
+                        logger.debug("插入{}成功", member);
+                    }
                     memberInfoMapper.addMemberInfo(memberInfo);
                     logger.debug("插入{}成功", member);
                 } catch (Exception e) {
