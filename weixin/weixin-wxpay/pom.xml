@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>weixin</artifactId>
+        <groupId>com.nogemasa</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>weixin-wxpay</artifactId>
+    <packaging>pom</packaging>
+    <description>微信支付模块</description>
+    <modules>
+        <module>weixin-wxpay-scanpay</module>
+    </modules>
+    <properties>
+        <dependency.wxpay.scanpay.java.sdk.version>1.0.1</dependency.wxpay.scanpay.java.sdk.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.tencent</groupId>
+                <artifactId>wxpay-scanpay-java-sdk</artifactId>
+                <version>${dependency.wxpay.scanpay.java.sdk.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

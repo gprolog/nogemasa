@@ -3,19 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>nogemasa</artifactId>
+        <artifactId>weixin-wxpay</artifactId>
         <groupId>com.nogemasa</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>weixin</artifactId>
-    <packaging>pom</packaging>
-    <description>weixin module</description>
-    <modules>
-        <module>weixin-front</module>
-        <module>weixin-server</module>
-        <module>weixin-common</module>
-        <module>weixin-web</module>
-        <module>weixin-wxpay</module>
-    </modules>
+    <artifactId>weixin-wxpay-scanpay</artifactId>
+    <packaging>jar</packaging>
+    <description>微信支付之扫码支付</description>
+    <dependencies>
+        <dependency>
+            <groupId>com.tencent</groupId>
+            <artifactId>wxpay-scanpay-java-sdk</artifactId>
+        </dependency>
+    </dependencies>
 </project>
