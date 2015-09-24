@@ -45,6 +45,7 @@
         <dependency.spring-security.version>4.0.1.RELEASE</dependency.spring-security.version>
         <dependency.bonecp.version>0.8.0.RELEASE</dependency.bonecp.version>
         <dependency.jackson.version>2.5.3</dependency.jackson.version>
+        <dependency.httpcore.version>4.4.3</dependency.httpcore.version>
         <dependency.httpcomponents.version>4.5</dependency.httpcomponents.version>
         <dependency.freemarker.version>2.3.22</dependency.freemarker.version>
         <dependency.poi.version>3.12</dependency.poi.version>
@@ -52,6 +53,9 @@
         <dependency.xstream.version>1.4.8</dependency.xstream.version>
         <dependency.jbarcode.version>0.2.8</dependency.jbarcode.version>
         <dependency.commons-io.version>2.4</dependency.commons-io.version>
+        <dependency.commons-codec.version>1.6</dependency.commons-codec.version>
+        <dependency.xpp3.version>1.1.4c</dependency.xpp3.version>
+        <dependency.xmlpull.version>1.1.3.1</dependency.xmlpull.version>
     </properties>
 
     <dependencies>
@@ -245,6 +249,36 @@
                 <version>${dependency.httpcomponents.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>fluent-hc</artifactId>
+                <version>${dependency.httpcomponents.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient-cache</artifactId>
+                <version>${dependency.httpcomponents.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpmime</artifactId>
+                <version>${dependency.httpcomponents.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>${dependency.httpcore.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xpp3</groupId>
+                <artifactId>xpp3</artifactId>
+                <version>${dependency.xpp3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xmlpull</groupId>
+                <artifactId>xmlpull</artifactId>
+                <version>${dependency.xmlpull.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjrt</artifactId>
                 <version>${dependency.aspectj.version}</version>
@@ -285,6 +319,11 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${dependency.commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${dependency.commons-codec.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
