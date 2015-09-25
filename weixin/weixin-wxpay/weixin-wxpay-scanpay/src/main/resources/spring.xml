@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-4.1.xsd
+                           http://www.springframework.org/schema/jee
+                           http://www.springframework.org/schema/jee/spring-jee.xsd">
+    <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:content.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="UTF-8"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+
+    <jee:jndi-lookup jndi-name="wxpay/scanpay/key" id="wxpay.scanpay.key" expected-type="java.lang.String"/>
+    <jee:jndi-lookup jndi-name="wxpay/scanpay/appID" id="wxpay.scanpay.appID" expected-type="java.lang.String"/>
+    <jee:jndi-lookup jndi-name="wxpay/scanpay/mchID" id="wxpay.scanpay.mchID" expected-type="java.lang.String"/>
+    <jee:jndi-lookup jndi-name="wxpay/scanpay/sdbMchID" id="wxpay.scanpay.sdbMchID" expected-type="java.lang.String"/>
+    <jee:jndi-lookup jndi-name="wxpay/scanpay/certLocalPath" id="wxpay.scanpay.certLocalPath"
+                     expected-type="java.lang.String"/>
+    <jee:jndi-lookup jndi-name="wxpay/scanpay/certPassword" id="wxpay.scanpay.certPassword"
+                     expected-type="java.lang.String"/>
+
+    <!-- 初始化微信支付SDK的基本配置项 -->
+    <bean class="com.nogemasa.weixin.wxpay.scanpay.WXScanPayInitConfigure"
+          c:key-ref="wxpay.scanpay.key"
+          c:appID-ref="wxpay.scanpay.appID"
+          c:mchID-ref="wxpay.scanpay.mchID"
+          c:sdbMchID-ref="wxpay.scanpay.sdbMchID"
+          c:certLocalPath-ref="wxpay.scanpay.certLocalPath"
+          c:certPassword-ref="wxpay.scanpay.certPassword"/>
+
+    <!--添加签名切面+操作记录切面-->
+    <import resource="spring-operation.xml"/>
+    <context:component-scan base-package="com.nogemasa.weixin.wxpay.scanpay"/>
+</beans>

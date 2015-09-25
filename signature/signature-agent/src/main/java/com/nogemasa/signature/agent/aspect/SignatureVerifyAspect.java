@@ -44,7 +44,7 @@ public class SignatureVerifyAspect {
             logger.error("签名验证请求参数异常！", e);
             json.put("success", false);
             json.put("errorCode", 403);
-            json.put("message", "请求参数异常，请检查后重试！");
+            json.put("message", "签名验证请求参数异常，请检查后重试！");
             return json;
         }
         String verifyResult;
